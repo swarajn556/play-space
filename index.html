@@ -3,142 +3,201 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#102e25">
-  <meta name="description" content="Discover, share and explore community play spaces with PlaySpace Live.">
-  <title>PlaySpace Live — Your city, your playground</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#16835f">
+  <title>PlaySpace Live | Find a Place to Play</title>
+
+  <link rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="announcement">🌱 A little more space for a lot more play.</div>
-
-  <header class="navbar">
-    <a class="logo" href="#" aria-label="PlaySpace Live home">
-      <span class="logo-icon">⚽</span>
-      <span>play<span class="logo-accent">space</span><small>LIVE</small></span>
-    </a>
+  <header class="topbar">
+    <a class="brand" href="#">🌳 PlaySpace <span>Live</span></a>
     <nav>
-      <a href="#discover">Explore</a>
-      <a href="#how">How it works</a>
-      <a href="#community">Community</a>
+      <a href="#explore">Explore</a>
+      <a href="#map-section">Map</a>
+      <a href="#add">Add space</a>
+      <a href="#assistant">Chatbot</a>
     </nav>
-    <div class="nav-actions">
-      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
-      <button class="outline-btn" id="notifyBtn">♧ Alerts</button>
-      <button class="primary-btn nav-add" id="addBtn">＋ Add a space</button>
-    </div>
+    <button id="themeBtn" class="btn secondary">🌙 Dark mode</button>
   </header>
 
   <main>
     <section class="hero">
       <div class="hero-content">
-        <div class="pill"><span class="live-dot"></span> YOUR NEIGHBOURHOOD, REIMAGINED</div>
-        <h1>Your city is full<br>of places to <span class="highlight">play.</span></h1>
-        <p class="hero-description">Find nearby grounds, discover free time slots, and turn overlooked spaces into your next favourite playground.</p>
+        <span class="eyebrow">YOUR CITY. YOUR COMMUNITY. YOUR PLAYGROUND.</span>
+        <h1>Every child deserves<br>a <span>place to play.</span></h1>
+        <p>Discover nearby parks, find open play spaces, and help your community share useful local information.</p>
         <div class="hero-actions">
-          <a href="#discover" class="primary-btn big-btn">Find a play space <span>↗</span></a>
-          <a href="#how" class="text-link">See how it works <span>→</span></a>
+          <a href="#explore" class="btn">Explore spaces ↗</a>
+          <button id="locationBtn" class="btn secondary">📍 Use my location</button>
         </div>
-        <div class="hero-social">
-          <div class="avatar-stack"><span>🧒</span><span>👧</span><span>🏃</span><span>⚽</span></div>
-          <p><strong id="heroCount">6 spaces to explore</strong><br><span>Start discovering your neighbourhood</span></p>
-        </div>
+        <p id="locationMessage" class="muted" aria-live="polite">Showing community demo listings.</p>
       </div>
-
-      <div class="hero-visual">
-        <div class="visual-top"><span>✳ MADE FOR THE COMMUNITY</span><span>↗</span></div>
+      <div class="hero-illustration" aria-hidden="true">
         <div class="sun"></div>
-        <div class="cloud cloud-one"></div>
-        <div class="cloud cloud-two"></div>
-        <div class="land land-back"></div>
-        <div class="land land-front"></div>
-        <div class="football-field"><div class="midline"></div><div class="center-circle"></div></div>
-        <span class="scene-emoji tree-left">🌳</span>
-        <span class="scene-emoji tree-right">🌲</span>
-        <span class="scene-emoji runner">🏃</span>
-        <span class="scene-emoji child">🧒</span>
-        <span class="scene-emoji ball">⚽</span>
-        <div class="floating-card">
-          <span class="floating-icon">📍</span>
-          <div><strong>Play starts nearby</strong><small>Explore spaces around you</small></div>
-          <span class="float-arrow">↗</span>
+        <div class="hill hill-one"></div>
+        <div class="hill hill-two"></div>
+        <div class="tree">🌳</div>
+        <div class="play-icon">🛝</div>
+        <div class="ball">⚽</div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <article><strong id="spaceCount">0</strong><span>Play spaces</span></article>
+      <article><strong id="favoriteCount">0</strong><span>Favourites</span></article>
+      <article><strong id="reportCount">0</strong><span>Community reports</span></article>
+    </section>
+
+    <section id="explore" class="section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">DISCOVER YOUR NEIGHBOURHOOD</span>
+          <h2>Find a place to play</h2>
+          <p>Search for parks, playgrounds, and sports areas.</p>
         </div>
-        <span class="visual-caption">LESS SCROLLING. MORE SCORING.</span>
-      </div>
-    </section>
-
-    <section class="impact-strip" id="community">
-      <div class="impact-intro"><span class="impact-star">✳</span><span>SMALL SPACES.<br><strong>BIG POSSIBILITIES.</strong></span></div>
-      <div class="impact-stat"><strong id="totalCount">6</strong><span>Community listings</span></div>
-      <div class="impact-stat"><strong id="availableCount">3</strong><span>Listed as free now</span></div>
-      <div class="impact-stat"><strong id="favouriteCount">0</strong><span>Your favourites</span></div>
-    </section>
-
-    <section class="discover-section" id="discover">
-      <div class="section-title-row">
-        <div><div class="eyebrow">YOUR NEXT ADVENTURE</div><h2>Find your <span>playground.</span></h2><p class="section-subtitle">Good games start with a great place.</p></div>
-        <button class="text-link" id="showAllBtn">Explore all spaces ↗</button>
       </div>
 
-      <div class="search-panel">
-        <div class="search-field"><span>⌕</span><input id="search" type="search" placeholder="Search a space or neighbourhood..." aria-label="Search spaces"><kbd>SEARCH</kbd></div>
-        <div class="select-field"><span>⚑</span><select id="typeFilter" aria-label="Filter by type"><option value="all">All space types</option><option>Ground</option><option>Park</option><option>Court</option><option>Open area</option></select></div>
-        <div class="select-field"><span>◷</span><select id="statusFilter" aria-label="Filter by availability"><option value="all">Any availability</option><option>Available now</option><option>Available later</option></select></div>
+      <div class="filters">
+        <input id="searchInput" type="search" placeholder="🔎 Search name or area...">
+        <select id="typeFilter">
+          <option value="all">All types</option>
+          <option value="park">Parks</option>
+          <option value="playground">Playgrounds</option>
+          <option value="sports">Sports areas</option>
+        </select>
+        <select id="statusFilter">
+          <option value="all">All availability</option>
+          <option value="free">Reported free</option>
+          <option value="busy">Reported busy</option>
+          <option value="closed">Reported closed</option>
+          <option value="unknown">No recent report</option>
+        </select>
+        <button id="favoritesBtn" class="btn secondary">♡ Favourites only</button>
       </div>
 
-      <div class="category-row" id="categoryRow">
-        <button class="category active" data-category="all">✳ All spaces</button>
-        <button class="category" data-category="Ground">⚽ Grounds</button>
-        <button class="category" data-category="Park">🌳 Parks</button>
-        <button class="category" data-category="Court">🏀 Courts</button>
-        <button class="category" data-category="Open area">🛝 Open areas</button>
-        <button class="category" data-category="favourites">♡ Favourites <span id="favChipCount">0</span></button>
+      <div id="placesGrid" class="places-grid"></div>
+      <p id="emptyMessage" class="empty-message" hidden>No matching spaces. Try changing your filters.</p>
+    </section>
+
+    <section id="map-section" class="section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">EXPLORE NEAR YOU</span>
+          <h2>Play space map</h2>
+          <p>Allow location access to search for mapped parks and playgrounds nearby.</p>
+        </div>
+        <button id="nearbyBtn" class="btn">📍 Find nearby parks</button>
+      </div>
+      <div id="map" role="application" aria-label="Map of parks and playgrounds"></div>
+      <p class="note">Map data © OpenStreetMap contributors. Results depend on community mapping and public service availability.</p>
+    </section>
+
+    <section id="add" class="section two-columns">
+      <div>
+        <span class="eyebrow">GROW YOUR COMMUNITY</span>
+        <h2>Know a good play space?</h2>
+        <p>Add a park, playground, or sports area so other people can discover it.</p>
+        <div class="info-card">
+          <span class="info-icon">🌱</span>
+          <div><strong>Community-powered</strong><p>Help people find places to play in their neighbourhood.</p></div>
+        </div>
       </div>
 
-      <div class="results-line"><span id="resultsLabel">Showing community spaces</span><span>✳ Community shared</span></div>
-      <div id="spaceGrid" class="space-grid"></div>
-      <div class="no-results" id="noResults" hidden><div>🔎</div><h3>No spaces found</h3><p>Try another search, or share a new play space.</p><button class="primary-btn" id="emptyAddBtn">＋ Add a space</button></div>
+      <form id="addForm" class="panel form-stack">
+        <h3>Add a play space</h3>
+        <label>Place name
+          <input name="name" required maxlength="70" placeholder="Example: Community Playground">
+        </label>
+        <label>Type
+          <select name="type" required>
+            <option value="playground">Playground</option>
+            <option value="park">Park</option>
+            <option value="sports">Sports area</option>
+          </select>
+        </label>
+        <label>Area or address
+          <input name="area" required maxlength="100" placeholder="Street, neighbourhood or city">
+        </label>
+        <label>Description
+          <textarea name="description" maxlength="220" placeholder="Describe this play space..."></textarea>
+        </label>
+        <button class="btn" type="submit">＋ Add space</button>
+        <p class="note">Demo listings are stored in this browser. They are not automatically shared with other users.</p>
+      </form>
     </section>
 
-    <section class="community-banner">
-      <div class="banner-orb">💚</div>
-      <div class="banner-copy"><span class="eyebrow">GOOD THINGS GROW TOGETHER</span><h2>Know a space? <span>Share the joy.</span></h2><p>Your little contribution could help a whole neighbourhood get outside and play.</p></div>
-      <button class="light-btn" id="bannerAddBtn">Share a space <span>↗</span></button>
-      <span class="banner-decoration">✳</span>
+    <section id="reports-section" class="section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">SHARE WHAT YOU SEE</span>
+          <h2>Community availability reports</h2>
+          <p>Tell others whether a place appears free, busy, or closed.</p>
+        </div>
+      </div>
+
+      <form id="reportForm" class="panel report-form">
+        <label>Play space
+          <select id="reportPlace" name="placeId" required></select>
+        </label>
+        <label>Current observation
+          <select name="status" required>
+            <option value="free">🟢 Looks free to play</option>
+            <option value="busy">🟡 Busy right now</option>
+            <option value="closed">🔴 Closed or unavailable</option>
+          </select>
+        </label>
+        <label>Optional note
+          <input name="note" maxlength="160" placeholder="Example: Quiet this afternoon">
+        </label>
+        <button type="submit" class="btn">Submit report</button>
+        <p id="reportMessage" class="note" aria-live="polite"></p>
+      </form>
+
+      <div id="reportsList" class="reports-list"></div>
     </section>
 
-    <section class="how-section" id="how">
-      <div class="eyebrow">THREE STEPS TO MORE PLAY</div>
-      <h2>It's a <span>community</span> thing.</h2>
-      <div class="steps-grid">
-        <article class="step-card"><span class="step-number">01</span><div class="step-icon icon-lime">⌕</div><h3>Discover</h3><p>Explore shared grounds, courts, parks, and open spaces in your neighbourhood.</p><span class="step-decoration">↗</span></article>
-        <article class="step-card"><span class="step-number">02</span><div class="step-icon icon-peach">◷</div><h3>Check the time</h3><p>See the time slots listed by the community before planning your next game.</p><span class="step-decoration">↗</span></article>
-        <article class="step-card"><span class="step-number">03</span><div class="step-icon icon-blue">♡</div><h3>Spread the word</h3><p>Share a space, save a favourite, and help more neighbours get moving.</p><span class="step-decoration">↗</span></article>
+    <section id="assistant" class="section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">YOUR FRIENDLY PLAY GUIDE</span>
+          <h2>Meet PlayBuddy 💬</h2>
+          <p>Ask how to find spaces, use the map, or submit availability reports.</p>
+        </div>
+      </div>
+
+      <div class="chat-panel panel">
+        <div id="chatMessages" class="chat-messages" aria-live="polite">
+          <div class="message bot-message">
+            <strong>PlayBuddy 🌳</strong>
+            <p>Hi! I can help you use PlaySpace Live. Try asking, “How do I find nearby parks?”</p>
+          </div>
+        </div>
+        <div class="quick-questions">
+          <button type="button" data-question="How do I find nearby parks?">📍 Nearby parks</button>
+          <button type="button" data-question="How do I add a play space?">＋ Add a space</button>
+          <button type="button" data-question="How do I report availability?">📝 Report availability</button>
+          <button type="button" data-question="Is this park free right now?">🟢 Is it free now?</button>
+        </div>
+        <form id="chatForm" class="chat-form">
+          <input id="chatInput" required maxlength="300" placeholder="Ask PlayBuddy something...">
+          <button class="btn" type="submit">Send ➤</button>
+        </form>
+        <p class="note">PlayBuddy uses preset responses. It does not independently verify live availability.</p>
       </div>
     </section>
-
-    <section class="closing-cta"><span>YOUR NEXT GAME IS OUT THERE.</span><h2>Ready, set, <em>play.</em></h2><a href="#discover" class="primary-btn big-btn">Explore spaces ↗</a></section>
   </main>
 
-  <footer><a class="logo footer-logo" href="#"><span class="logo-icon">⚽</span><span>play<span class="logo-accent">space</span><small>LIVE</small></span></a><p>Built for neighbourhoods. Made for play.</p><a href="#discover">Back to the top ↑</a></footer>
+  <footer>
+    <a class="brand" href="#">🌳 PlaySpace <span>Live</span></a>
+    <p>Making room for play, one neighbourhood at a time.</p>
+    <small>Map data © OpenStreetMap contributors</small>
+  </footer>
 
-  <dialog id="spaceDialog">
-    <form id="spaceForm">
-      <div class="dialog-heading"><div><div class="eyebrow">GROW THE COMMUNITY</div><h2>Share a space ✳</h2></div><button type="button" class="close-btn" id="closeBtn" aria-label="Close">×</button></div>
-      <label>Space name<input name="name" required maxlength="60" placeholder="e.g. Sunrise Community Ground"></label>
-      <label>Area / neighbourhood<input name="area" required maxlength="60" placeholder="e.g. CIDCO"></label>
-      <div class="form-row"><label>Space type<select name="type"><option>Ground</option><option>Park</option><option>Court</option><option>Open area</option></select></label><label>Availability<select name="status"><option>Available now</option><option>Available later</option></select></label></div>
-      <label>Free time slot<input name="slot" required maxlength="60" placeholder="e.g. Today, 5–7 PM"></label>
-      <label>Short description<textarea name="note" maxlength="180" placeholder="What makes this space great?"></textarea></label>
-      <label class="permission-note"><input type="checkbox" name="permission" required> I have a good reason to believe sharing this listing is appropriate and play is permitted.</label>
-      <button type="submit" class="primary-btn full-btn">Add to the community ↗</button>
-      <p class="fine-print">Do not share private addresses or personal information. Listings are not independently verified.</p>
-    </form>
-  </dialog>
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
