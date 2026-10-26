@@ -1,15 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#16835f">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PlaySpace Live | Find a Place to Play</title>
-
-  <link rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-
+  <!-- Leaflet CSS for map tiles and controls -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -25,6 +21,7 @@
   </header>
 
   <main>
+    <!-- Hero Section -->
     <section class="hero">
       <div class="hero-content">
         <span class="eyebrow">YOUR CITY. YOUR COMMUNITY. YOUR PLAYGROUND.</span>
@@ -34,7 +31,7 @@
           <a href="#explore" class="btn">Explore spaces ↗</a>
           <button id="locationBtn" class="btn secondary">📍 Use my location</button>
         </div>
-        <p id="locationMessage" class="muted" aria-live="polite">Showing community demo listings.</p>
+        <p id="locationMessage" class="note" aria-live="polite">Showing community demo listings.</p>
       </div>
       <div class="hero-illustration" aria-hidden="true">
         <div class="sun"></div>
@@ -46,12 +43,14 @@
       </div>
     </section>
 
+    <!-- Statistics -->
     <section class="stats">
       <article><strong id="spaceCount">0</strong><span>Play spaces</span></article>
       <article><strong id="favoriteCount">0</strong><span>Favourites</span></article>
       <article><strong id="reportCount">0</strong><span>Community reports</span></article>
     </section>
 
+    <!-- Explore / Search & Filters -->
     <section id="explore" class="section">
       <div class="section-heading">
         <div>
@@ -60,7 +59,6 @@
           <p>Search for parks, playgrounds, and sports areas.</p>
         </div>
       </div>
-
       <div class="filters">
         <input id="searchInput" type="search" placeholder="🔎 Search name or area...">
         <select id="typeFilter">
@@ -78,11 +76,11 @@
         </select>
         <button id="favoritesBtn" class="btn secondary">♡ Favourites only</button>
       </div>
-
       <div id="placesGrid" class="places-grid"></div>
       <p id="emptyMessage" class="empty-message" hidden>No matching spaces. Try changing your filters.</p>
     </section>
 
+    <!-- Map Section -->
     <section id="map-section" class="section">
       <div class="section-heading">
         <div>
@@ -92,10 +90,11 @@
         </div>
         <button id="nearbyBtn" class="btn">📍 Find nearby parks</button>
       </div>
-      <div id="map" role="application" aria-label="Map of parks and playgrounds"></div>
-      <p class="note">Map data © OpenStreetMap contributors. Results depend on community mapping and public service availability.</p>
+      <div id="map" class="map-container"></div>
+      <p class="note">Map data © OpenStreetMap contributors. Results depend on mapping data and public service availability.</p>
     </section>
 
+    <!-- Add Place Section -->
     <section id="add" class="section two-columns">
       <div>
         <span class="eyebrow">GROW YOUR COMMUNITY</span>
@@ -106,7 +105,6 @@
           <div><strong>Community-powered</strong><p>Help people find places to play in their neighbourhood.</p></div>
         </div>
       </div>
-
       <form id="addForm" class="panel form-stack">
         <h3>Add a play space</h3>
         <label>Place name
@@ -126,10 +124,11 @@
           <textarea name="description" maxlength="220" placeholder="Describe this play space..."></textarea>
         </label>
         <button class="btn" type="submit">＋ Add space</button>
-        <p class="note">Demo listings are stored in this browser. They are not automatically shared with other users.</p>
+        <p class="note">Demo listings are stored in your browser. They are not automatically shared with other users.</p>
       </form>
     </section>
 
+    <!-- Community Reports Section -->
     <section id="reports-section" class="section">
       <div class="section-heading">
         <div>
@@ -138,7 +137,6 @@
           <p>Tell others whether a place appears free, busy, or closed.</p>
         </div>
       </div>
-
       <form id="reportForm" class="panel report-form">
         <label>Play space
           <select id="reportPlace" name="placeId" required></select>
@@ -156,10 +154,10 @@
         <button type="submit" class="btn">Submit report</button>
         <p id="reportMessage" class="note" aria-live="polite"></p>
       </form>
-
       <div id="reportsList" class="reports-list"></div>
     </section>
 
+    <!-- Chatbot Section -->
     <section id="assistant" class="section">
       <div class="section-heading">
         <div>
@@ -168,7 +166,6 @@
           <p>Ask how to find spaces, use the map, or submit availability reports.</p>
         </div>
       </div>
-
       <div class="chat-panel panel">
         <div id="chatMessages" class="chat-messages" aria-live="polite">
           <div class="message bot-message">
@@ -196,11 +193,8 @@
     <p>Making room for play, one neighbourhood at a time.</p>
     <small>Map data © OpenStreetMap contributors</small>
   </footer>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js"></script>
-</body>
-</html>
 
+  <!-- Leaflet JS and our script -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="script.js"></script>
 </body>
